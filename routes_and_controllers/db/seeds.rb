@@ -7,5 +7,13 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.destroy_all
-User.create(name: 'wade', email: 'doxx')
-User.create(name: 'alec', email: 'doxx2')
+u1 = User.create(username: 'wade')
+u2 = User.create(username: 'alec')
+
+Contact.destroy_all
+c1 = Contact.create(name: 'contact_1', email: '1@xyz.com', user_id: u1.id)
+c2 = Contact.create(name: 'contact_2', email: '2@xyz.com', user_id: u2.id)
+
+ContactShare.destroy_all
+cs1 = ContactShare.create(contact_id: c1.id, user_id: u2.id)
+cs2 = ContactShare.create(contact_id: c2.id, user_id: u1.id)
