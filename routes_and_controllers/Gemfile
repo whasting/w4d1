@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'annotate'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'addressable'
+gem 'pry-rails'
 gem 'rest-client'
 gem 'rails', '4.2.7.1'
 # Use postgresql as the database for Active Record

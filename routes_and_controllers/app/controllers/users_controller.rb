@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def index
-    @user = User.all
-    render json: @user
+    @users = User.all
+    render json: @users
   end
 
   def create
@@ -10,34 +10,39 @@ class UsersController < ApplicationController
     if @user.save
       render json: @user
     else
-      begin
       render(
-        json: user.errors.full_messages, status: :unprocessable_entity
+        json: @user.errors.full_messages, status: :unprocessable_entity
       )
-      rescue RestClient::Exception
-        retry
-      end
     end
+
   end
 
   def show
-    render json: params
-  end
-
-  def update
-    @user = User.where(id: params[:id])
-    @user.update(params[:id], user_params)
+    @user = User.find(params[:id])
     render json: @user
   end
 
+  def update
+
+    @user = User.find(params[:id])
+
+    if @user.update(user_params)
+      render json: @user
+    else
+      render(
+        json: @user.errors.full_messages, status: :unprocessable_entity
+      )
+    end
+  end
+
   def delete
-    @user = User.where(id: params[:id])
+    @user = User.find(params[:id])
     User.destroy(params[:id])
     render json: @user
   end
 
   private
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:username)
   end
 end
